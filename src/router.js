@@ -1,25 +1,62 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+// eslint-disable-next-line
+import store from '@/store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      component: () => import('./views/main/Core.vue'),
+      meta: { authRequired: true },
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('./views/main/Home.vue'),
+        },
+        {
+          path: 'about',
+          component: () => import('./views/main/About.vue'),
+        },
+      ],
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/auth',
+      component: () => import('./views/auth/Core.vue'),
+      children: [
+        {
+          path: '',
+          name: 'login',
+          component: () => import('./views/auth/Login.vue'),
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: () => import('./views/auth/Register.vue'),
+        },
+      ],
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('checkAuth');
+  if (to.matched.some(record => record.meta.authRequired)) {
+    if (!store.state.isAuthenticated) {
+      next({ name: 'login', query: { redirect: to.fullPath } });
+    } else {
+      next();
+    }
+  } else if (store.state.isAuthenticated) {
+    next({ name: 'home' });
+  } else {
+    next();
+  }
+});
+
+export default router;
