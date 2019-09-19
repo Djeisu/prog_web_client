@@ -1,6 +1,6 @@
 
 <template>
-  <user-form :action="'Register'" @form="submit">
+  <user-form :action="'Update'" @form="submit">
     <v-btn text to="/auth">
       Login
     </v-btn>
@@ -11,13 +11,13 @@
 import UserForm from '@/components/user/Form.vue';
 
 export default {
-  name: 'register',
+  name: 'updateProfile',
   components: {
     UserForm,
   },
   methods: {
     submit(form) {
-      this.$store.dispatch('registerUser', form);
+      this.$store.dispatch('updateUser', form);
     },
   },
 };

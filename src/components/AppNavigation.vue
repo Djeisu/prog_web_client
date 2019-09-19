@@ -83,14 +83,19 @@ export default {
           icon: 'mdi-home',
         },
         {
-          title: 'About',
-          url: '/about',
-          icon: 'mdi-heart',
+          title: 'Profile',
+          url: '/profile',
+          icon: 'mdi-account',
         },
         {
-          title: 'Auth',
-          url: '/auth/',
-          icon: 'mdi-account-arrow-right',
+          title: 'Profile Delete',
+          url: '/profile/delete',
+          icon: 'mdi-account',
+        },
+        {
+          title: 'Profile Update',
+          url: '/profile/update',
+          icon: 'mdi-account',
         },
       ],
     };

@@ -30,6 +30,7 @@ export default new Vuex.Store({
   },
   actions: {
     // checkAuth({ dispatch, commit }) {
+    //   // make localstorage
     // },
     async getInfoUser({ state, commit }, payload) {
       try {
@@ -58,7 +59,7 @@ export default new Vuex.Store({
         commit('setError', error);
       }
     },
-    async register({ state, commit }, payload) {
+    async registerUser({ state, commit }, payload) {
       try {
         const response = await axios.post(`${state.apiUrl}/users`, payload);
         commit('setUser', response.data);
@@ -68,9 +69,35 @@ export default new Vuex.Store({
         commit('setError', error);
       }
     },
-    // signOut({ commit }) {
-
-    // },
+    async updateUser({ state, commit }, payload) {
+      try {
+        await axios.put(`${state.apiUrl}/users/${state.user.username}`, payload, {
+          headers: { Authorization: state.token },
+        });
+        router.push('/home');
+      } catch (error) {
+        commit('setError', error);
+      }
+    },
+    async deleteUser({ state, commit }) {
+      try {
+        await axios.delete(`${state.apiUrl}/users/${state.user.username}`, {
+          headers: { Authorization: state.token },
+        });
+        commit('setUser', null);
+        commit('setToken', null);
+        commit('setIsAuthenticated', false);
+        router.push('/auth');
+      } catch (error) {
+        commit('setError', error);
+      }
+    },
+    signOut({ commit }) {
+      commit('setUser', null);
+      commit('setToken', null);
+      commit('setIsAuthenticated', false);
+      router.push('/auth');
+    },
   },
   getters: {
     isAuthenticated(state) {

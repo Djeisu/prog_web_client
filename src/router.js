@@ -20,8 +20,21 @@ const router = new Router({
           component: () => import('./views/main/Home.vue'),
         },
         {
-          path: 'about',
-          component: () => import('./views/main/About.vue'),
+          path: 'profile',
+          name: 'profile',
+          component: () => import('./views/main/profile/Profile.vue'),
+          children: [
+            {
+              path: 'delete',
+              name: 'delete',
+              component: () => import('./views/main/profile/DeleteProfile.vue'),
+            },
+            {
+              path: 'update',
+              name: 'update',
+              component: () => import('./views/main/profile/UpdateProfile.vue'),
+            },
+          ],
         },
       ],
     },
@@ -45,7 +58,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  store.dispatch('checkAuth');
+  // store.dispatch('checkAuth');
   if (to.matched.some(record => record.meta.authRequired)) {
     if (!store.state.isAuthenticated) {
       next({ name: 'login', query: { redirect: to.fullPath } });
