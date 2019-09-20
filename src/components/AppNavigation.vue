@@ -3,16 +3,22 @@
     <v-navigation-drawer v-model="drawer" absolute temporary app
       class="lighten-2"
       disable-resize-watcher>
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-img :src="user().photo"></v-img>
-        </v-list-item-avatar>
+      <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg">
+        <v-row align="end" class="lightbox white--text pa-0 fill-height fill-width">
+          <v-list class="pa-0">
+            <v-list-item>
+              <v-list-item-avatar color="white">
+                <v-icon :color="'primary'">mdi-account-circle</v-icon>
+              </v-list-item-avatar>
 
-        <v-list-item-content>
-          <v-list-item-title>{{ user().name }}</v-list-item-title>
-          <v-list-item-subtitle v-text="user().email"></v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{ user().name }}</v-list-item-title>
+                <v-list-item-subtitle v-text="user().email"></v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-row>
+      </v-img>
 
       <v-divider></v-divider>
 
@@ -34,7 +40,7 @@
       </template>
     </v-navigation-drawer>
 
-    <v-app-bar app color="deep-purple accent-4" dense dark collapse collapse-on-scroll>
+    <v-app-bar app color="blue" dense dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Page title</v-toolbar-title>
@@ -115,11 +121,7 @@ export default {
       this.$store.dispatch('userSignOut');
     },
     user() {
-      return {
-        name: this.$store.state.user.name,
-        email: this.$store.state.user.email,
-        photo: this.$store.state.user.photoURL,
-      };
+      return this.$store.state.user;
     },
   },
 };

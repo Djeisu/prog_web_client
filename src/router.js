@@ -25,6 +25,11 @@ const router = new Router({
           component: () => import('./views/main/profile/Profile.vue'),
           children: [
             {
+              path: '',
+              name: 'show',
+              component: () => import('./views/main/profile/ShowProfile.vue'),
+            },
+            {
               path: 'delete',
               name: 'delete',
               component: () => import('./views/main/profile/DeleteProfile.vue'),

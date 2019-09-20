@@ -1,7 +1,5 @@
 <template>
-  <v-content transition="slide-x-transition">
-    <router-view></router-view>
-  </v-content>
+  <router-view></router-view>
 </template>
 
 <script>

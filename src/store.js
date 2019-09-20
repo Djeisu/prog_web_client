@@ -59,12 +59,13 @@ export default new Vuex.Store({
         commit('setError', error);
       }
     },
-    async registerUser({ state, commit }, payload) {
+    async registerUser({ dispatch, state, commit }, payload) {
       try {
-        const response = await axios.post(`${state.apiUrl}/users`, payload);
-        commit('setUser', response.data);
-        commit('setIsAuthenticated', true);
-        router.push('/home');
+        await axios.post(`${state.apiUrl}/users`, payload);
+        dispatch('login', {
+          email: payload.email,
+          password: payload.password,
+        });
       } catch (error) {
         commit('setError', error);
       }

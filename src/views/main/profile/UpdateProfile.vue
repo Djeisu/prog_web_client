@@ -1,10 +1,6 @@
 
 <template>
-  <user-form :action="'Update'" @form="submit">
-    <v-btn text to="/auth">
-      Login
-    </v-btn>
-  </user-form>
+  <user-form :action="'Update'" @form="submit"/>
 </template>
 
 <script>
