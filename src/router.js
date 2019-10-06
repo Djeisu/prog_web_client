@@ -20,6 +20,11 @@ const router = new Router({
           component: () => import('./views/main/Home.vue'),
         },
         {
+          path: 'archives',
+          name: 'archives',
+          component: () => import('./views/main/archives/Archives.vue'),
+        },
+        {
           path: 'profile',
           name: 'profile',
           component: () => import('./views/main/profile/Profile.vue'),

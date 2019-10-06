@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" absolute temporary app
+    <v-navigation-drawer v-model="drawer" fixed temporary app
       class="lighten-2"
       disable-resize-watcher>
       <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg">
@@ -33,11 +33,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn block @click.stop="logout">Logout</v-btn>
-        </div>
-      </template>
     </v-navigation-drawer>
 
     <v-app-bar app color="blue" dense dark>
@@ -48,29 +43,8 @@
       <div class="flex-grow-1"></div>
 
       <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
+        <v-icon @click.stop="logout">mdi-logout</v-icon>
       </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-menu transition="slide-y-transition" bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item v-for="n in 5" :key="n" @click="() => {}">
-            <v-list-item-title>
-              <v-icon>mdi-account-arrow-right</v-icon>
-              Option {{ n }}
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
     </v-app-bar>
   </div>
 </template>
@@ -118,7 +92,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('userSignOut');
+      this.$store.dispatch('signOut');
     },
     user() {
       return this.$store.state.user;
