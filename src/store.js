@@ -15,6 +15,7 @@ export default new Vuex.Store({
     error: null,
     archives: null,
     folders: null,
+    listUsers: null,
   },
   mutations: {
     setUser(state, payload) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     setFolders(state, payload) {
       state.folders = payload;
     },
+    setListUsers(state, payload) {
+      state.listUsers = payload;
+    },
   },
   actions: {
     // checkAuth({ dispatch, commit }) {
@@ -49,6 +53,7 @@ export default new Vuex.Store({
         commit('setIsAuthenticated', true);
         dispatch('getArchives', { folder: null });
         dispatch('getFolders', { folder: null });
+        dispatch('getListUsers');
         router.push('/home');
       } catch (error) {
         commit('setUser', null);
@@ -176,6 +181,16 @@ export default new Vuex.Store({
           { headers: { Authorization: state.token } });
 
         dispatch('getFolders', { folder: payload.folder });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getListUsers({ state, commit }) {
+      try {
+        const response = await axios.get(`${state.apiUrl}/users`,
+          { headers: { Authorization: state.token } });
+
+        commit('setListUsers', response.data);
       } catch (error) {
         console.error(error);
       }

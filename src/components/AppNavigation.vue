@@ -63,13 +63,13 @@ export default {
           icon: 'mdi-home',
         },
         {
-          title: 'Profile',
-          url: '/profile',
-          icon: 'mdi-account',
+          title: 'Archives',
+          url: '/archives',
+          icon: 'mdi-file',
         },
         {
-          title: 'Profile Delete',
-          url: '/profile/delete',
+          title: 'Profile',
+          url: '/profile',
           icon: 'mdi-account',
         },
         {

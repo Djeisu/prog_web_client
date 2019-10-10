@@ -35,11 +35,6 @@ const router = new Router({
               component: () => import('./views/main/profile/ShowProfile.vue'),
             },
             {
-              path: 'delete',
-              name: 'delete',
-              component: () => import('./views/main/profile/DeleteProfile.vue'),
-            },
-            {
               path: 'update',
               name: 'update',
               component: () => import('./views/main/profile/UpdateProfile.vue'),
