@@ -1,5 +1,5 @@
 <template>
-  <user-profile/>
+  <user-profile :user="$store.state.user"/>
 </template>
 
 <script>
